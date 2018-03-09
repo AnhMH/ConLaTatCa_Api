@@ -19,6 +19,13 @@ class Controller_Articles extends \Controller_App {
     }
     
     /**
+     * Get list
+     */
+    public function action_detail() {
+        return \Bus\Articles_Detail::getInstance()->execute();
+    }
+    
+    /**
      * Disable
      */
     public function action_disable() {
