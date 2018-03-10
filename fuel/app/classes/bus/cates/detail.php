@@ -3,18 +3,18 @@
 namespace Bus;
 
 /**
- * Get list data
+ * Get detail data
  *
  * @package Bus
  * @created 2017-10-29
  * @version 1.0
  * @author AnhMH
  */
-class Articles_All extends BusAbstract
+class Cates_Detail extends BusAbstract
 {
     /** @var array $_required field require */
     protected $_required = array(
-        
+        'id'
     );
 
     /** @var array $_length Length of fields */
@@ -28,7 +28,7 @@ class Articles_All extends BusAbstract
     );
 
     /**
-     * Call function get_all() from model Product
+     * Call function get_detail() from model Cate
      *
      * @author AnhMH
      * @param array $data Input data
@@ -37,8 +37,8 @@ class Articles_All extends BusAbstract
     public function operateDB($data)
     {
         try {
-            $this->_response = \Model_Article::get_all($data);
-            return $this->result(\Model_Article::error());
+            $this->_response = \Model_Cate::get_detail($data);
+            return $this->result(\Model_Cate::error());
         } catch (\Exception $e) {
             $this->_exception = $e;
         }
