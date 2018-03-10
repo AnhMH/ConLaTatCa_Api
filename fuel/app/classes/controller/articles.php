@@ -21,6 +21,13 @@ class Controller_Articles extends \Controller_App {
     /**
      * Get list
      */
+    public function action_addupdate() {
+        return \Bus\Articles_AddUpdate::getInstance()->execute();
+    }
+    
+    /**
+     * Get list
+     */
     public function action_detail() {
         return \Bus\Articles_Detail::getInstance()->execute();
     }

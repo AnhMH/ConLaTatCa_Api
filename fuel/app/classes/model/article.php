@@ -50,14 +50,13 @@ class Model_Article extends Model_Abstract {
     public static function add_update($param)
     {
         // Init
-        $adminId = !empty($param['admin_id']) ? $param['admin_id'] : '';
         $self = array();
         
         // Check if exist User
         if (!empty($param['id'])) {
             $self = self::find($param['id']);
             if (empty($self)) {
-                self::errorNotExist('product_id');
+                self::errorNotExist('article_id');
                 return false;
             }
         } else {
@@ -71,46 +70,24 @@ class Model_Article extends Model_Abstract {
                 self::setError($uploadResult['error']);
                 return false;
             }
-            $param['avatar'] = !empty($uploadResult['body']['avatar']) ? $uploadResult['body']['avatar'] : '';
+            $param['image'] = !empty($uploadResult['body']['image']) ? $uploadResult['body']['image'] : '';
         }
         
         // Set data
-        $self->set('admin_id', $adminId);
         if (!empty($param['name'])) {
             $self->set('name', $param['name']);
         }
         if (!empty($param['cate_id'])) {
             $self->set('cate_id', $param['cate_id']);
         }
-        if (isset($param['supplier_id'])) {
-            $self->set('supplier_id', $param['supplier_id']);
-        }
         if (!empty($param['description'])) {
             $self->set('description', $param['description']);
         }
-        if (!empty($param['detail'])) {
-            $self->set('detail', $param['detail']);
+        if (!empty($param['content'])) {
+            $self->set('content', $param['content']);
         }
-        if (!empty($param['avatar'])) {
-            $self->set('avatar', $param['avatar']);
-        }
-        if (!empty($param['gallery'])) {
-            $self->set('gallery', $param['gallery']);
-        }
-        if (!empty($param['agent_price'])) {
-            $self->set('agent_price', $param['agent_price']);
-        }
-        if (!empty($param['price'])) {
-            $self->set('price', $param['price']);
-        }
-        if (!empty($param['discount'])) {
-            $self->set('discount', $param['discount']);
-        }
-        if (!empty($param['rate'])) {
-            $self->set('rate', $param['rate']);
-        }
-        if (isset($param['qty'])) {
-            $self->set('qty', $param['qty']);
+        if (!empty($param['image'])) {
+            $self->set('image', $param['image']);
         }
         
         // Save data

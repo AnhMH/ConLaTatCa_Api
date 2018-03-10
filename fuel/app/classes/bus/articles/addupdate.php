@@ -10,7 +10,7 @@ namespace Bus;
  * @version 1.0
  * @author AnhMH
  */
-class Products_AddUpdate extends BusAbstract
+class Articles_AddUpdate extends BusAbstract
 {
     /** @var array $_required field require */
     protected $_required = array(
@@ -28,7 +28,7 @@ class Products_AddUpdate extends BusAbstract
     );
 
     /**
-     * Call function add_update() from model Product
+     * Call function add_update() from model Article
      *
      * @author AnhMH
      * @param array $data Input data
@@ -37,8 +37,8 @@ class Products_AddUpdate extends BusAbstract
     public function operateDB($data)
     {
         try {
-            $this->_response = \Model_Product::add_update($data);
-            return $this->result(\Model_Product::error());
+            $this->_response = \Model_Article::add_update($data);
+            return $this->result(\Model_Article::error());
         } catch (\Exception $e) {
             $this->_exception = $e;
         }
