@@ -246,6 +246,27 @@ class Model_Cate extends Model_Abstract {
         // Get data
         $data = $query->execute()->as_array();
         
+        // Get sub cate
+        if (!empty($data) && !empty($param['get_sub_cates'])) {
+            foreach ($data as &$val) {
+                $subCateIds = array();
+                foreach ($data as $k => $v) {
+                    if ($val['id'] == $v['root_id']) {
+                        $val['sub_cates'][] = $v;
+                        $subCateIds[] = $v['id'];
+                        unset($data[$k]);
+                    }
+                }
+                if (!empty($subCateIds)) {
+                    $val['default_articles'] = Model_Article::get_all(array(
+                        'cate_id' => $subCateIds,
+                        'limit' => 4,
+                        'page' => 1
+                    ));
+                }
+            }
+        }
+        
         return $data;
     }
 }

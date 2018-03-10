@@ -223,9 +223,12 @@ class Model_Article extends Model_Abstract {
         
         // Query
         $query = DB::select(
-                self::$_table_name.'.*'
+                self::$_table_name.'.*',
+                array('cates.name', 'cate_name')
             )
             ->from(self::$_table_name)
+            ->join('cates', 'LEFT')
+            ->on('cates.id', '=', self::$_table_name.'.cate_id')
             ->where(self::$_table_name.'.disable', 0)
         ;
                         
@@ -233,14 +236,11 @@ class Model_Article extends Model_Abstract {
         if (!empty($param['name'])) {
             $query->where(self::$_table_name.'.name', 'LIKE', "%{$param['name']}%");
         }
-        if (!empty($param['address'])) {
-            $query->where(self::$_table_name.'.address', 'LIKE', "%{$param['address']}%");
-        }
-        if (!empty($param['tel'])) {
-            $query->where(self::$_table_name.'.tel', 'LIKE', "%{$param['tel']}%");
-        }
-        if (!empty($param['email'])) {
-            $query->where(self::$_table_name.'.email', 'LIKE', "%{$param['email']}%");
+        if (!empty($param['cate_id'])) {
+            if (!is_array($param['cate_id'])) {
+                $param['cate_id'] = array($param['cate_id']);
+            }
+            $query->where(self::$_table_name.'.cate_id', 'IN', $param['cate_id']);
         }
         
         // Pagination
