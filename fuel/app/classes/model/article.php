@@ -115,9 +115,12 @@ class Model_Article extends Model_Abstract {
         
         // Query
         $query = DB::select(
-                self::$_table_name.'.*'
+                self::$_table_name.'.*',
+                array('cates.name', 'cate_name')
             )
             ->from(self::$_table_name)
+            ->join('cates', 'left')
+            ->on('cates.id', '=', self::$_table_name.'.cate_id')
         ;
                         
         // Filter
