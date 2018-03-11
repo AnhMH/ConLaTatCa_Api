@@ -258,7 +258,7 @@ class Model_Cate extends Model_Abstract {
                     }
                 }
                 if (!empty($subCateIds)) {
-                    $val['default_articles'] = Model_Article::get_all(array(
+                    $val['default_articles'] = Model_Post::get_all(array(
                         'cate_id' => $subCateIds,
                         'limit' => 4,
                         'page' => 1

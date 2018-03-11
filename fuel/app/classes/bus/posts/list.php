@@ -3,14 +3,14 @@
 namespace Bus;
 
 /**
- * Add/update info
+ * Get list data
  *
  * @package Bus
  * @created 2017-10-29
  * @version 1.0
  * @author AnhMH
  */
-class Articles_AddUpdate extends BusAbstract
+class Posts_List extends BusAbstract
 {
     /** @var array $_required field require */
     protected $_required = array(
@@ -28,7 +28,7 @@ class Articles_AddUpdate extends BusAbstract
     );
 
     /**
-     * Call function add_update() from model Article
+     * Call function get_list() from model Product
      *
      * @author AnhMH
      * @param array $data Input data
@@ -37,8 +37,8 @@ class Articles_AddUpdate extends BusAbstract
     public function operateDB($data)
     {
         try {
-            $this->_response = \Model_Article::add_update($data);
-            return $this->result(\Model_Article::error());
+            $this->_response = \Model_Post::get_list($data);
+            return $this->result(\Model_Post::error());
         } catch (\Exception $e) {
             $this->_exception = $e;
         }

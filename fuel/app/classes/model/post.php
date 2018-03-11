@@ -10,7 +10,7 @@ use Fuel\Core\DB;
  * @version 1.0
  * @author AnhMH
  */
-class Model_Article extends Model_Abstract {
+class Model_Post extends Model_Abstract {
     
     /** @var array $_properties field of table */
     protected static $_properties = array(
@@ -22,6 +22,7 @@ class Model_Article extends Model_Abstract {
         'image',
         'is_default',
         'is_home_slide',
+        'type',
         'created',
         'updated',
         'disable'
@@ -39,7 +40,7 @@ class Model_Article extends Model_Abstract {
     );
 
     /** @var array $_table_name name of table */
-    protected static $_table_name = 'articles';
+    protected static $_table_name = 'posts';
 
     /**
      * Add update info
@@ -57,7 +58,7 @@ class Model_Article extends Model_Abstract {
         if (!empty($param['id'])) {
             $self = self::find($param['id']);
             if (empty($self)) {
-                self::errorNotExist('article_id');
+                self::errorNotExist('post_id');
                 return false;
             }
         } else {
@@ -179,7 +180,7 @@ class Model_Article extends Model_Abstract {
         
         $data = self::find($id);
         if (empty($data)) {
-            self::errorNotExist('article_id');
+            self::errorNotExist('post_id');
             return false;
         }
         
@@ -299,27 +300,27 @@ class Model_Article extends Model_Abstract {
             ->as_array()
         ;
         
-        // Get articles data
-        $result['articles'] = DB::select(
+        // Get posts data
+        $result['posts'] = DB::select(
                 self::$_table_name.'.*',
                 array('cates.name', 'cate_name')
             )
             ->from(DB::expr("
                 (
                     SELECT
-			articles.*,
+			posts.*,
 			@rn :=
                             IF (@prev = cate_id, @rn + 1, 1) AS rn,
                         @prev := cate_id
                     FROM
-                        articles
+                        posts
                     JOIN (SELECT @prev := NULL, @rn := 0) AS vars
                     WHERE
                         disable = 0
                         AND is_home_slide = 0
                     ORDER BY
                         cate_id
-                ) AS articles
+                ) AS posts
             "))
             ->join('cates', 'LEFT')
             ->on('cates.id', '=', self::$_table_name.'.cate_id')

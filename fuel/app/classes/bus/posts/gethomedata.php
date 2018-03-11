@@ -10,7 +10,7 @@ namespace Bus;
  * @version 1.0
  * @author AnhMH
  */
-class Articles_List extends BusAbstract
+class Posts_GetHomeData extends BusAbstract
 {
     /** @var array $_required field require */
     protected $_required = array(
@@ -28,7 +28,7 @@ class Articles_List extends BusAbstract
     );
 
     /**
-     * Call function get_list() from model Product
+     * Call function get_all() from model Product
      *
      * @author AnhMH
      * @param array $data Input data
@@ -37,8 +37,8 @@ class Articles_List extends BusAbstract
     public function operateDB($data)
     {
         try {
-            $this->_response = \Model_Article::get_list($data);
-            return $this->result(\Model_Article::error());
+            $this->_response = \Model_Post::get_home_data($data);
+            return $this->result(\Model_Post::error());
         } catch (\Exception $e) {
             $this->_exception = $e;
         }

@@ -328,9 +328,9 @@ return array(
             'versions/check',
             'admins/login',
             'cates/all',
-            'articles/all',
-            'articles/detail',
-            'articles/gethomedata'
+            'posts/all',
+            'posts/detail',
+            'posts/gethomedata'
         ),
         'admin_authorize_url' => array(),
         'unauthorize_basic_token_url' => array(

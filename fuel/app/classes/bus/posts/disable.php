@@ -3,18 +3,19 @@
 namespace Bus;
 
 /**
- * Get list data
+ * Enable/Disable
  *
  * @package Bus
  * @created 2017-10-29
  * @version 1.0
  * @author AnhMH
  */
-class Articles_GetHomeData extends BusAbstract
+class Posts_Disable extends BusAbstract
 {
     /** @var array $_required field require */
     protected $_required = array(
-        
+        'id',
+        'disable'
     );
 
     /** @var array $_length Length of fields */
@@ -28,7 +29,7 @@ class Articles_GetHomeData extends BusAbstract
     );
 
     /**
-     * Call function get_all() from model Product
+     * Call function disable() from model Post
      *
      * @author AnhMH
      * @param array $data Input data
@@ -37,8 +38,8 @@ class Articles_GetHomeData extends BusAbstract
     public function operateDB($data)
     {
         try {
-            $this->_response = \Model_Article::get_home_data($data);
-            return $this->result(\Model_Article::error());
+            $this->_response = \Model_Post::disable($data);
+            return $this->result(\Model_Post::error());
         } catch (\Exception $e) {
             $this->_exception = $e;
         }

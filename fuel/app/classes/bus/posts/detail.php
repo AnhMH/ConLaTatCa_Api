@@ -3,19 +3,18 @@
 namespace Bus;
 
 /**
- * Enable/Disable
+ * Get detail data
  *
  * @package Bus
  * @created 2017-10-29
  * @version 1.0
  * @author AnhMH
  */
-class Articles_Disable extends BusAbstract
+class Posts_Detail extends BusAbstract
 {
     /** @var array $_required field require */
     protected $_required = array(
-        'id',
-        'disable'
+        'id'
     );
 
     /** @var array $_length Length of fields */
@@ -29,7 +28,7 @@ class Articles_Disable extends BusAbstract
     );
 
     /**
-     * Call function disable() from model Article
+     * Call function get_detail() from model Post
      *
      * @author AnhMH
      * @param array $data Input data
@@ -38,8 +37,8 @@ class Articles_Disable extends BusAbstract
     public function operateDB($data)
     {
         try {
-            $this->_response = \Model_Article::disable($data);
-            return $this->result(\Model_Article::error());
+            $this->_response = \Model_Post::get_detail($data);
+            return $this->result(\Model_Post::error());
         } catch (\Exception $e) {
             $this->_exception = $e;
         }
