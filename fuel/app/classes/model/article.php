@@ -21,6 +21,7 @@ class Model_Article extends Model_Abstract {
         'content',
         'image',
         'is_default',
+        'is_home_slide',
         'created',
         'updated',
         'disable'
@@ -269,5 +270,65 @@ class Model_Article extends Model_Abstract {
         $data = $query->execute()->as_array();
         
         return $data;
+    }
+    
+    /**
+     * Get home data
+     *
+     * @author AnhMH
+     * @param array $param Input data
+     * @return array|bool
+     */
+    public static function get_home_data($param)
+    {
+        // Init
+        $result = array();
+        
+        // Get home slider
+        $result['sliders'] = DB::select(
+                self::$_table_name.'.*',
+                array('cates.name', 'cate_name')
+            )
+            ->from(self::$_table_name)
+            ->join('cates', 'LEFT')
+            ->on('cates.id', '=', self::$_table_name.'.cate_id')
+            ->where(self::$_table_name.'.is_home_slide', 1)
+            ->where(self::$_table_name.'.disable', 0)
+            ->limit(4)
+            ->execute()
+            ->as_array()
+        ;
+        
+        // Get articles data
+        $result['articles'] = DB::select(
+                self::$_table_name.'.*',
+                array('cates.name', 'cate_name')
+            )
+            ->from(DB::expr("
+                (
+                    SELECT
+			articles.*,
+			@rn :=
+                            IF (@prev = cate_id, @rn + 1, 1) AS rn,
+                        @prev := cate_id
+                    FROM
+                        articles
+                    JOIN (SELECT @prev := NULL, @rn := 0) AS vars
+                    WHERE
+                        disable = 0
+                        AND is_home_slide = 0
+                    ORDER BY
+                        cate_id
+                ) AS articles
+            "))
+            ->join('cates', 'LEFT')
+            ->on('cates.id', '=', self::$_table_name.'.cate_id')
+            ->where(DB::expr("rn <= 6"))
+            ->execute()
+            ->as_array()
+        ;
+        
+        // Return data
+        return $result;
     }
 }

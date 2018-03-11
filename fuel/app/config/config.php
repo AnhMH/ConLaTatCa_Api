@@ -329,7 +329,8 @@ return array(
             'admins/login',
             'cates/all',
             'articles/all',
-            'articles/detail'
+            'articles/detail',
+            'articles/gethomedata'
         ),
         'admin_authorize_url' => array(),
         'unauthorize_basic_token_url' => array(

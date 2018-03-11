@@ -38,4 +38,11 @@ class Controller_Articles extends \Controller_App {
     public function action_disable() {
         return \Bus\Articles_Disable::getInstance()->execute();
     }
+    
+    /**
+     * Get home data
+     */
+    public function action_gethomedata() {
+        return \Bus\Articles_GetHomeData::getInstance()->execute();
+    }
 }
