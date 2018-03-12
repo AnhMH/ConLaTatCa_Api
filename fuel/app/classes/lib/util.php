@@ -599,5 +599,37 @@ class Util {
         
         return $urls;
     }
+    
+    /**
+     * Get page data
+     * 
+     * @return array
+     */
+    public static function getPageData($url, $element = 'div', $className) {
+        // Init
+        $data = '';
+        if (empty($url)) {
+            return $data;
+        }
+        
+        // Get website content
+        $dom = new \DOMDocument;
+        $str = file_get_contents($url);
+        
+        @$dom->loadHTML($str);
 
+        $xpath = new \DOMXPath($dom);
+
+//        $title = $xpath->query("//{$element}[@class='{$className}']");
+//
+//        $data['title'] = $title->item(0)->nodeValue;
+        
+        $description = $xpath->query("//{$element}[@class='{$className}']");
+        $description = $description->item(0);
+        $description = htmlentities($dom->saveXML($description));
+        preg_match_all("/<div class=\'DetailContent\'>(.*?)<\/div>/", $description, $output);
+        $data['content'] = $output;
+        
+        return $data;
+    }
 }

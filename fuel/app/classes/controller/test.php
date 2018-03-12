@@ -15,8 +15,11 @@ class Controller_Test extends \Controller_Rest {
      * 
      */
     public function action_index() {
-        $url = 'https://hoanganhonline.com';
-        $data = \Lib\Util::getWebsiteUrls($url);
+        $url = 'http://conlatatca.vn/be-1-thang-tuoi/nhiet-do-nuoc-tam-cho-be-bao-nhieu-la-chuan/';
+        $className = 'DetailContent';//'Detail-title';
+        $element = 'div';//'h1';
+        $data = \Lib\Util::getPageData($url, $element, $className);
+        
         echo '<pre>';
         print_r($data);
         die();
