@@ -15,6 +15,11 @@ class Controller_Test extends \Controller_Rest {
      * 
      */
     public function action_index() {
+        $url = 'https://hoanganhonline.com';
+        $data = \Lib\Util::getWebsiteUrls($url);
+        echo '<pre>';
+        print_r($data);
+        die();
         echo date('Y-m-d H:i:s');
         echo '<br/>';
         echo date_default_timezone_get();

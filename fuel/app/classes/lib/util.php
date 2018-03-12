@@ -558,5 +558,46 @@ class Util {
         $success = file_put_contents($filePath, $data);
         return $success ? $fileUrl : '';
     }
+    
+    /**
+     * Get all links from website
+     * 
+     * @return array
+     */
+    public static function getWebsiteUrls($website) {
+        // Init
+        $urls = array();
+        if (empty($website)) {
+            return $urls;
+        }
+        
+        // Get website content
+        $str = file_get_contents($website);
+
+        // Gets Webpage Title
+        /*if (strlen($str) > 0) {
+            $str = trim(preg_replace('/\s+/', ' ', $str)); // supports line breaks inside <title>
+            preg_match("/\<title\>(.*)\<\/title\>/i", $str, $title); // ignore case
+            $title = $title[1];
+        }*/
+
+        // Gets Webpage Description
+        /*$b = $website;
+        @$url = parse_url($b);
+        @$tags = get_meta_tags($url['scheme'] . '://' . $url['host']);
+        $description = $tags['description'];
+        */
+        // Gets Webpage Internal Links
+        $doc = new \DOMDocument;
+        @$doc->loadHTML($str);
+
+        $items = $doc->getElementsByTagName('a');
+        foreach ($items as $value) {
+            $attrs = $value->attributes;
+            $urls[] = $attrs->getNamedItem('href')->nodeValue;
+        }
+        
+        return $urls;
+    }
 
 }
