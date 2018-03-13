@@ -22,6 +22,7 @@ class Model_Post extends Model_Abstract {
         'image',
         'is_default',
         'is_home_slide',
+        'is_hot',
         'type',
         'created',
         'updated',
@@ -317,6 +318,7 @@ class Model_Post extends Model_Abstract {
                     JOIN (SELECT @prev := NULL, @rn := 0) AS vars
                     WHERE
                         disable = 0
+                        AND is_hot = 0
                         AND is_home_slide = 0
                     ORDER BY
                         cate_id
@@ -325,6 +327,35 @@ class Model_Post extends Model_Abstract {
             ->join('cates', 'LEFT')
             ->on('cates.id', '=', self::$_table_name.'.cate_id')
             ->where(DB::expr("rn <= 6"))
+            ->execute()
+            ->as_array()
+        ;
+        
+        $result['latest_posts'] = DB::select(
+                self::$_table_name.'.*',
+                array('cates.name', 'cate_name')
+            )
+            ->from(self::$_table_name)
+            ->join('cates', 'LEFT')
+            ->on('cates.id', '=', self::$_table_name.'.cate_id')
+            ->where(self::$_table_name.'.disable', 0)
+            ->order_by(self::$_table_name.'.created', 'DESC')
+            ->limit(6)
+            ->execute()
+            ->as_array()
+        ;
+        
+        $result['breaking_news'] = DB::select(
+                self::$_table_name.'.*',
+                array('cates.name', 'cate_name')
+            )
+            ->from(self::$_table_name)
+            ->join('cates', 'LEFT')
+            ->on('cates.id', '=', self::$_table_name.'.cate_id')
+            ->where(self::$_table_name.'.disable', 0)
+            ->where(self::$_table_name.'.is_hot', 1)
+            ->order_by(self::$_table_name.'.created', 'DESC')
+            ->limit(4)
             ->execute()
             ->as_array()
         ;
