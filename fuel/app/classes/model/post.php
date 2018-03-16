@@ -356,20 +356,6 @@ class Model_Post extends Model_Abstract {
             ->as_array()
         ;
         
-        $result['latest_posts'] = DB::select(
-                self::$_table_name.'.*',
-                array('cates.name', 'cate_name')
-            )
-            ->from(self::$_table_name)
-            ->join('cates', 'LEFT')
-            ->on('cates.id', '=', self::$_table_name.'.cate_id')
-            ->where(self::$_table_name.'.disable', 0)
-            ->order_by(self::$_table_name.'.created', 'DESC')
-            ->limit(6)
-            ->execute()
-            ->as_array()
-        ;
-        
         $result['breaking_news'] = DB::select(
                 self::$_table_name.'.*',
                 array('cates.name', 'cate_name')

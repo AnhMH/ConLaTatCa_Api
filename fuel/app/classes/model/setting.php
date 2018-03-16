@@ -59,6 +59,13 @@ class Model_Setting extends Model_Abstract {
         $result['cates'] = Model_Cate::get_all(array(
             'get_sub_cates' => 1
         ));
+        
+        // Get lastest post
+        
+        $result['lastest_post'] = Model_Post::get_all(array(
+            'page' => 1,
+            'limit' => 6
+        ));
                 
         // Return
         return $result;
