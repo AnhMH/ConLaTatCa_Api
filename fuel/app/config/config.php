@@ -330,7 +330,8 @@ return array(
             'cates/all',
             'posts/all',
             'posts/detail',
-            'posts/gethomedata'
+            'posts/gethomedata',
+            'settings/general'
         ),
         'admin_authorize_url' => array(),
         'unauthorize_basic_token_url' => array(

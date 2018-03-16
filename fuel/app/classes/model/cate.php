@@ -254,7 +254,6 @@ class Model_Cate extends Model_Abstract {
                     if ($val['id'] == $v['root_id']) {
                         $val['sub_cates'][] = $v;
                         $subCateIds[] = $v['id'];
-                        unset($data[$k]);
                     }
                 }
                 if (!empty($subCateIds)) {
