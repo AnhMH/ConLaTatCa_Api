@@ -40,6 +40,13 @@ class Controller_Posts extends \Controller_App {
     }
     
     /**
+     * Disable
+     */
+    public function action_all() {
+        return \Bus\Posts_All::getInstance()->execute();
+    }
+    
+    /**
      * Get home data
      */
     public function action_gethomedata() {
