@@ -75,7 +75,10 @@ class Model_Setting extends Model_Abstract {
             'facebook' => 'https://www.facebook.com/pageconlatatca',
             'twitter' => 'https://twitter.com/',
             'instagram' => 'https://www.instagram.com/conlatatcainfo/',
-            'google_plus' => 'https://plus.google.com/u/0/113674456774184840341?hl=vi'
+            'google_plus' => 'https://plus.google.com/u/0/113674456774184840341?hl=vi',
+            'homepage_top_cate' => '3',
+            'homepage_sub_cate' => array(1,2,4),
+            'show_adv' => 0
         );
                 
         // Return

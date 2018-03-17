@@ -343,8 +343,6 @@ class Model_Post extends Model_Abstract {
                     JOIN (SELECT @prev := NULL, @rn := 0) AS vars
                     WHERE
                         disable = 0
-                        AND is_hot = 0
-                        AND is_home_slide = 0
                     ORDER BY
                         cate_id
                 ) AS posts
