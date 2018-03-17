@@ -67,10 +67,16 @@ class Model_Setting extends Model_Abstract {
             'limit' => 6
         ));
         
+        $result['breaking_news'] = Model_Post::get_all(array(
+            'page' => 1,
+            'limit' => 4,
+            'is_hot' => 1
+        ));
+        
         // Get setting
         $result['settings'] = array(
             'web_title' => 'Con Là Tất Cả',
-            'web_description' => '',
+            'web_description' => 'Niềm vui của mẹ - Tự hào của cha - Con là tất cả. Cập nhật hàng ngày thông tin hữu ích liên quan đến cách chăm sóc, nuôi dạy con cái.',
             'web_keyword' => '',
             'facebook' => 'https://www.facebook.com/pageconlatatca',
             'twitter' => 'https://twitter.com/',

@@ -270,6 +270,9 @@ class Model_Post extends Model_Abstract {
             }
             $query->where(self::$_table_name.'.cate_id', 'IN', $param['cate_id']);
         }
+        if (isset($param['is_hot']) && $param['is_hot'] != '') {
+            $query->where(self::$_table_name.'.is_hot', $param['is_hot']);
+        }
         
         // Pagination
         if (!empty($param['page']) && $param['limit']) {
@@ -350,21 +353,6 @@ class Model_Post extends Model_Abstract {
             ->join('cates', 'LEFT')
             ->on('cates.id', '=', self::$_table_name.'.cate_id')
             ->where(DB::expr("rn <= 6"))
-            ->execute()
-            ->as_array()
-        ;
-        
-        $result['breaking_news'] = DB::select(
-                self::$_table_name.'.*',
-                array('cates.name', 'cate_name')
-            )
-            ->from(self::$_table_name)
-            ->join('cates', 'LEFT')
-            ->on('cates.id', '=', self::$_table_name.'.cate_id')
-            ->where(self::$_table_name.'.disable', 0)
-            ->where(self::$_table_name.'.is_hot', 1)
-            ->order_by(self::$_table_name.'.created', 'DESC')
-            ->limit(4)
             ->execute()
             ->as_array()
         ;
