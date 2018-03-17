@@ -62,10 +62,21 @@ class Model_Setting extends Model_Abstract {
         
         // Get lastest post
         
-        $result['lastest_post'] = Model_Post::get_all(array(
+        $result['latest_post'] = Model_Post::get_all(array(
             'page' => 1,
             'limit' => 6
         ));
+        
+        // Get setting
+        $result['settings'] = array(
+            'web_title' => 'Con Là Tất Cả',
+            'web_description' => '',
+            'web_keyword' => '',
+            'facebook' => 'https://www.facebook.com/pageconlatatca',
+            'twitter' => 'https://twitter.com/',
+            'instagram' => 'https://www.instagram.com/conlatatcainfo/',
+            'google_plus' => 'https://plus.google.com/u/0/113674456774184840341?hl=vi'
+        );
                 
         // Return
         return $result;
