@@ -266,12 +266,18 @@ class Model_Post extends Model_Abstract {
         }
         if (!empty($param['cate_id'])) {
             if (!is_array($param['cate_id'])) {
-                $param['cate_id'] = array($param['cate_id']);
+                $param['cate_id'] = explode(',', $param['cate_id']);
             }
             $query->where(self::$_table_name.'.cate_id', 'IN', $param['cate_id']);
         }
         if (isset($param['is_hot']) && $param['is_hot'] != '') {
             $query->where(self::$_table_name.'.is_hot', $param['is_hot']);
+        }
+        if (isset($param['is_home_slide']) && $param['is_home_slide'] != '') {
+            $query->where(self::$_table_name.'.is_home_slide', $param['is_home_slide']);
+        }
+        if (isset($param['type']) && $param['type'] != '') {
+            $query->where(self::$_table_name.'.type', $param['type']);
         }
         
         // Pagination
@@ -315,19 +321,18 @@ class Model_Post extends Model_Abstract {
         $result = array();
         
         // Get home slider
-        $result['sliders'] = DB::select(
-                self::$_table_name.'.*',
-                array('cates.name', 'cate_name')
-            )
-            ->from(self::$_table_name)
-            ->join('cates', 'LEFT')
-            ->on('cates.id', '=', self::$_table_name.'.cate_id')
-            ->where(self::$_table_name.'.is_home_slide', 1)
-            ->where(self::$_table_name.'.disable', 0)
-            ->limit(4)
-            ->execute()
-            ->as_array()
-        ;
+        $result['sliders'] = self::get_all(array(
+            'page' => 1,
+            'limit' => 4,
+            'is_home_slide' => 1
+        ));
+        
+        // Get home slider
+        $result['medias'] = self::get_all(array(
+            'page' => 1,
+            'limit' => 4,
+            'type' => 2
+        ));
         
         // Get posts data
         $result['posts'] = DB::select(

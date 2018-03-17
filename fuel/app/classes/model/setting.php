@@ -84,7 +84,7 @@ class Model_Setting extends Model_Abstract {
             'google_plus' => 'https://plus.google.com/u/0/113674456774184840341?hl=vi',
             'homepage_top_cate' => '3',
             'homepage_sub_cate' => array(1,2,4),
-            'show_adv' => 0
+            'show_adv' => 1
         );
                 
         // Return
