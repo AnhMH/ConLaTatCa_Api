@@ -1,6 +1,6 @@
 <?php
 $envConf = array(
-    'img_url' => 'http://img.maishop.localhost/',
+    'img_url' => 'https://img.conlatatca.info/',
     'send_email' => true,
     'test_email' => '', // will send to this email for testing 
     'api_check_security' => true,
