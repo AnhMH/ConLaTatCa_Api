@@ -14,7 +14,7 @@ class Posts_Detail extends BusAbstract
 {
     /** @var array $_required field require */
     protected $_required = array(
-        'id'
+        
     );
 
     /** @var array $_length Length of fields */

@@ -17,6 +17,7 @@ class Model_Post extends Model_Abstract {
         'id',
         'cate_id',
         'name',
+        'url',
         'description',
         'keyword',
         'content',
@@ -80,6 +81,7 @@ class Model_Post extends Model_Abstract {
         // Set data
         if (!empty($param['name'])) {
             $self->set('name', $param['name']);
+            $self->set('url', \Lib\Str::convertURL($param['name']));
         }
         if (!empty($param['cate_id'])) {
             $self->set('cate_id', $param['cate_id']);
@@ -185,17 +187,23 @@ class Model_Post extends Model_Abstract {
     public static function get_detail($param)
     {
         $id = !empty($param['id']) ? $param['id'] : '';
+        $url = !empty($param['url']) ? $param['url'] : '';
         
         $query = DB::select(
                 self::$_table_name.'.*',
-                array('cates.name', 'cate_name')
+                array('cates.name', 'cate_name'),
+                array('cates.url', 'cate_url')
             )
             ->from(self::$_table_name)
             ->join('cates', 'LEFT')
             ->on('cates.id', '=', self::$_table_name.'.cate_id')
             ->where(self::$_table_name.'.disable', 0)
-            ->where(self::$_table_name.'.id', $id)
         ;
+        if (!empty($url)) {
+            $query->where(self::$_table_name.'.url', $url);
+        } else {
+            $query->where(self::$_table_name.'.id', $id);
+        }
         $data = $query->execute()->offsetGet(0);
         if (empty($data)) {
             self::errorNotExist('post_id');
@@ -205,7 +213,8 @@ class Model_Post extends Model_Abstract {
         if (!empty($param['get_relations'])) {
             $data['relations'] = DB::select(
                     self::$_table_name.'.*',
-                    DB::expr("'{$data['cate_name']}' AS cate_name")
+                    DB::expr("'{$data['cate_name']}' AS cate_name"),
+                    DB::expr("'{$data['cate_url']}' AS cate_url")
                 )
                 ->from(self::$_table_name)
                 ->where(self::$_table_name.'.disable', 0)
@@ -256,10 +265,22 @@ class Model_Post extends Model_Abstract {
         // Init
         $adminId = !empty($param['admin_id']) ? $param['admin_id'] : '';
         
+        if (!empty($param['cate_url'])) {
+            $cate = Model_Cate::find('first', array(
+                'where' => array(
+                    'url' => $param['cate_url']
+                )
+            ));
+            if (!empty($cate['id'])) {
+                $param['cate_id'] = $cate['id'];
+            }
+        }
+        
         // Query
         $query = DB::select(
                 self::$_table_name.'.*',
-                array('cates.name', 'cate_name')
+                array('cates.name', 'cate_name'),
+                array('cates.url', 'cate_url')
             )
             ->from(self::$_table_name)
             ->join('cates', 'LEFT')
@@ -344,7 +365,8 @@ class Model_Post extends Model_Abstract {
         // Get posts data
         $result['posts'] = DB::select(
                 self::$_table_name.'.*',
-                array('cates.name', 'cate_name')
+                array('cates.name', 'cate_name'),
+                array('cates.url', 'cate_url')
             )
             ->from(DB::expr("
                 (

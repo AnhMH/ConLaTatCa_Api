@@ -16,6 +16,7 @@ class Model_Cate extends Model_Abstract {
     protected static $_properties = array(
         'id',
         'name',
+        'url',
         'root_id',
         'order',
         'created',
@@ -63,6 +64,7 @@ class Model_Cate extends Model_Abstract {
         // Set data
         if (!empty($param['name'])) {
             $self->set('name', $param['name']);
+            $self->set('url', \Lib\Str::convertURL($param['name']));
         }
         if (!empty($param['root_id'])) {
             $self->set('root_id', $param['root_id']);
