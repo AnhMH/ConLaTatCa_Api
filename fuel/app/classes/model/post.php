@@ -18,6 +18,7 @@ class Model_Post extends Model_Abstract {
         'cate_id',
         'name',
         'description',
+        'keyword',
         'content',
         'image',
         'is_default',
@@ -91,6 +92,12 @@ class Model_Post extends Model_Abstract {
         }
         if (!empty($param['image'])) {
             $self->set('image', $param['image']);
+        }
+        if (!empty($param['keyword'])) {
+            $self->set('keyword', $param['keyword']);
+        }
+        if (isset($param['type'])) {
+            $self->set('type', $param['type']);
         }
         
         // Save data

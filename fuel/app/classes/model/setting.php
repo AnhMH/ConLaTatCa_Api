@@ -78,6 +78,7 @@ class Model_Setting extends Model_Abstract {
             'web_title' => 'Con Là Tất Cả',
             'web_description' => 'Niềm vui của mẹ - Tự hào của cha - Con là tất cả. Cập nhật hàng ngày thông tin hữu ích liên quan đến cách chăm sóc, nuôi dạy con cái.',
             'web_keyword' => '',
+            'web_image' => '',
             'facebook' => 'https://www.facebook.com/pageconlatatca',
             'twitter' => 'https://twitter.com/',
             'instagram' => 'https://www.instagram.com/conlatatcainfo/',
