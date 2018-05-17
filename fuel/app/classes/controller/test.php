@@ -15,6 +15,9 @@ class Controller_Test extends \Controller_Rest {
      * 
      */
     public function action_index() {
+        $client = new Google_Client();
+        var_dump($client);
+        exit();
         $url = 'http://conlatatca.vn/be-1-thang-tuoi/nhiet-do-nuoc-tam-cho-be-bao-nhieu-la-chuan/';
         $className = 'DetailContent';//'Detail-title';
         $element = 'div';//'h1';
