@@ -17,7 +17,8 @@
         "monolog/monolog": "^1.23",
         "phpseclib/phpseclib": "2.0.0",
         "michelf/php-markdown": "1.4.0",
-        "google/apiclient": "^2.0"
+        "google/apiclient": "^2.0",
+        "facebook/graph-sdk": "^5.6"
     },
     "require-dev": {
         "fuel/docs": "1.8.*"
